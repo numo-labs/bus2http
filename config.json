@@ -1,0 +1,21 @@
+{
+  "serviceName": "bus2http",
+  "routes": [
+    {
+      "bus": {
+        "namespace": "search:packages:v1"
+      },
+      "http": {
+        "baseUrl": "http://ww2.thomascook.com"
+      }
+    },
+   {
+     "bus": {
+       "namespace": "search:packages:show:v1"
+     },
+     "http": {
+       "baseUrl": "http://ww2.thomascook.com"
+     }
+   }
+  ]
+}
