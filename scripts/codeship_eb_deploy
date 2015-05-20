@@ -1,0 +1,22 @@
+#!/bin/bash
+pip install awsebcli
+
+# Note: if the application or environment name has been changed in AWS, you need
+# to replace the EB_ENV_NAME below with the relevant static string value.
+
+APP_NAME_MAX_LENGTH=17
+APP_NAME=`node -e "console.log(require('./package.json').name.replace(/(^|\-)(\w)/g, function(src, prefix, str) { return str.toUpperCase() }).substr(0, $APP_NAME_MAX_LENGTH))"`
+MAJOR_VERSION=`node -e "console.log(('V' + require('./package.json').version.split('.')[0]).substr(0, 2))"`
+EB_APP_NAME=NM$APP_NAME$MAJOR_VERSION
+EB_ENV_SUFFIX=CI
+EB_ENV_NAME=$EB_APP_NAME$EB_ENV_SUFFIX
+EB_ENV_EXISTS=`eb list | grep $EB_ENV_NAME`
+
+eb init
+set -e
+if [ -z "$EB_ENV_EXISTS" ]
+then
+  eb create $EB_ENV_NAME -d --cfg=$EB_ENV_NAME-sc
+fi
+
+eb deploy $EB_ENV_NAME

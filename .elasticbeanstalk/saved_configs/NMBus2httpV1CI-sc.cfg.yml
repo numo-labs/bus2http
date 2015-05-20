@@ -1,0 +1,49 @@
+Tags:
+  numo-app-role: microservice
+AWSConfigurationTemplateVersion: 1.1.0.0
+EnvironmentTier:
+  Name: WebServer
+  Type: Standard
+SolutionStack: 64bit Amazon Linux 2015.03 v1.3.1 running Node.js
+OptionSettings:
+  aws:ec2:vpc:
+    VPCId: vpc-e2398887
+    AssociatePublicIpAddress: true
+    Subnets: subnet-ce7ce9b9
+  aws:elasticbeanstalk:command:
+    BatchSize: '30'
+    BatchSizeType: Percentage
+  aws:autoscaling:launchconfiguration:
+    IamInstanceProfile: aws-elasticbeanstalk-ec2-role
+    RootVolumeType: gp2
+    ImageId: ami-5d9eeb2a
+    SecurityGroups: sg-d7496fb2
+    EC2KeyName: numo-labs
+    InstanceType: t2.small
+  aws:elasticbeanstalk:environment:
+    EnvironmentType: SingleInstance
+  aws:autoscaling:asg:
+    MaxSize: '4'
+  aws:elasticbeanstalk:hostmanager:
+    LogPublicationControl: true
+  aws:autoscaling:updatepolicy:rollingupdate:
+    RollingUpdateType: Time
+    RollingUpdateEnabled: true
+  aws:elasticbeanstalk:application:environment:
+    MSB_SERVICE_NAME: ''
+    MSB_BROKER_ADAPTER: amqp
+    MSB_BROKER_HOST: ec2-54-76-177-158.eu-west-1.compute.amazonaws.com
+    NEW_RELIC_APP_NAME: ''
+    NEW_RELIC_LICENSE_KEY: a9a2415a84178d7c823162015f1c05e335765e13
+    NEW_RELIC_CAPTURE_PARAMS: true
+    NUMO_MONGO_URL: ''
+    NUMO_REDIS_HOST: 127.0.0.1
+    NUMO_REDIS_PORT: 6379
+    NUMO_REDIS_DB: 0
+    NUMO_ES_URLS: ''
+  aws:elasticbeanstalk:sns:topics:
+    Notification Endpoint: pascal.laenen@thomascookonline.com
+  aws:elasticbeanstalk:container:nodejs:
+    NodeVersion: 0.10.38
+    NodeCommand: npm start
+    ProxyServer: none

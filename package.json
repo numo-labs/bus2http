@@ -1,0 +1,22 @@
+{
+  "name": "bus2http",
+  "private": true,
+  "version": "1.0.0",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "test": "lab -c",
+    "test-watch": "nodemon node_modules/lab/bin/lab -c",
+    "codeship-eb-deploy": "./scripts/codeship_eb_deploy"
+  },
+  "devDependencies": {
+    "code": "^1.4.0",
+    "lab": "^5.5.0",
+    "nodemon": "^1.3.6",
+    "simple-mock": "^0.3.0"
+  },
+  "dependencies": {
+    "msb": "^0.4.0",
+    "msb-newrelic": "^0.4.0"
+  }
+}
